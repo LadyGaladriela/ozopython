@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" class="full-height">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Ozobot</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Rajdhani:600,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="codemirror/lib/codemirror.css">
+        <link rel="stylesheet" type="text/css" href="codemirror/theme/dracula.css">
+        <link href="main.css" rel="stylesheet">
+    </head>
+    <body class="full-height">
+
+        <nav class="navbar navbar-dark">
+            <div class="container">
+                <img src="img/logo_ozopython.png" alt="" class="logo-text">
+                <div class="pull-right">
+                    <a href="#link" class="lang_text">wersja polska</a>
+                    <a href="#link" class="lang_text" style="margin-right: 10px;">wersja angielska</a>
+                    <input type="checkbox" name="my-checkbox" checked>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container full-height">
+            <div class="row full-height">
+                <div class="col-md-7 full-height">
+                    <div class="editor">
+                        <textarea name="codemirror" rows="8" cols="10"></textarea>
+                    </div>
+                    <div class="d-flex align-items-stretch">
+                        <button type="button" class="btn btn-primary p-2 m-0" data-toggle="button" aria-pressed="false">
+                            SPRAWDŹ KOD
+                        </button>
+                        <div class="alert alert-warning p-2 m-0 w-100" role="alert">
+                            Kod zawiera komendę PRINT, która nie jest rozpoznawalna przez robota.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 full-height">
+                    <div class="input-group mobile_space">
+                        <h3 class="mr-3">Dostępne komendy</h3>
+                        <input type="text" class="form-control" placeholder="wyszukaj..." aria-label="wyszukaj" aria-describedby="basic-addon1">
+                        <button type="submit" class="input-group-addon" id="basic-addon1"><span class="fa fa-search"></span></button>
+                    </div>
+
+                    <div id="doc-accordion" role="tablist">
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a data-toggle="collapse" href="#doc-move" aria-expanded="true" aria-controls="doc-move">
+                                        Move
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-move" class="collapse" role="tabpanel" aria-labelledby="doc-move" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>move()</code>
+                                    <p>Użyj komendy Move aby Ozobot pojechał do przodu lub do tyłu.</p>
+                                    <p><strong>Wskazówka:</strong> Komendy w kategorii MOVE nie korzystają z odczytów czujnika Ozobota. Robot będzie ignorował linie, kolory i kształty narysowane na podłożu.</p>
+                                    <code>move(forward, 1 step, medium)</code>
+                                    <p>Pozwala on na ustawienie kierunku ruchu (forward lub backward), odległość na jaką robot pojedzie oraz prędkość ruchu. Prędkość możemy ustawić jako slow (25 mm/sec), medium (45 mm/sec), fast (65 mm/sec), very fast (85 mm/sec).</p>
+                                    <code>move(20,30)</code>
+                                    <p>Ustaw wybraną przez ciebie odległość (w mm) i prędkość (w mm/sec). Do pól liczbowych można wpisywać liczby z przedziału od -128 do 127. Będziesz musiał połączyć kilka bloków, by zaprogramować pokonywanie dłuższych dystansów. Prędkość możesz wpisać dowolną z przedziału od 15 do 85mm/sec. Jeśli wpiszesz ujemną liczbę, robot będzie jechał do tyłu.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-rotate" aria-expanded="false" aria-controls="doc-rotate">
+                                        Rotate
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-rotate" class="collapse" role="tabpanel" aria-labelledby="doc-rotate" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>rotate(slight left)</code>
+                                    <p>
+                                        Komenda Rotate obraca Ozobota zgodnie lub przeciwnie do ruchu wskazówek zegara.
+                                        Użyj menu rozwijanego aby wybrać w jaki sposób robot ma się obrócić: slight left lub slight right (około 45 stopni), left lub right (około 90 stopni), czy u-turn left lub u-turn right (około 180 stopni).
+                                        Wszystkie manewry wykonywane są z domyślną, średnią prędkością.
+                                    </p>
+                                    <p>
+                                        <strong>Wskazówka:</strong> Ozobot wykonuje obroty z niedokładnościami (może obrócić się od 85 do 93 stopni, zamiast o 90). Ma to związek z tym jakie jest w danym momencie podłoże, kalibracja prędkości czy ograniczenia techniczne.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-zigzag" aria-expanded="false" aria-controls="doc-zigzag">
+                                        Zig-Zag Move
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-zigzag" class="collapse" role="tabpanel" aria-labelledby="doc-zigzag" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>zigzag(medium)</code>
+                                    <p>
+                                        Komenda Zigzag sprawi, że Ozobot będzie poruszał się do przodu zygzakiem.
+                                        Możesz połączyć kilka takich ruchów aby zwiększyć przebytą odległość.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-skate" aria-expanded="false" aria-controls="doc-skate">
+                                        Skate Move
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-skate" class="collapse" role="tabpanel" aria-labelledby="doc-skate" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>skate(medium,forward)</code>
+                                    <p>
+                                        Skate Move sprawia, że Ozobot będzie poruszał się prosto przed siebie w sposób podobny w jakim jeździ się na łyżwach.
+                                        Możesz łączyć kilka takich bloków aby zwiększyć odległość na jaką robot będzie podążał. Czujniki Ozobota są wyłączone w czasie wykonywania tej instrukcji.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-spin" aria-expanded="false" aria-controls="doc-spin">
+                                        Spin Move
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-spin" class="collapse" role="tabpanel" aria-labelledby="doc-spin" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>spin(left)</code>
+                                    <p>
+                                        Użyj Komendy Spin aby Ozobot wykonał pełen obrót wokół własnej osi, przeciwnie lub zgodnie z ruchem do ruchu wskazówek zegara.
+                                        W czasie tego manewru, robot zaczyna przyspieszać do swojej maksymalnej prędkości, by następnie stopniowo wyhamować.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-smallcircle" aria-expanded="false" aria-controls="doc-smallcircle">
+                                        Move In Small Circle
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-smallcircle" class="collapse" role="tabpanel" aria-labelledby="doc-smallcircle" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>small_circle()</code>
+                                    <p>
+                                        Użycie tej komendy spowoduje, że Ozobot wykona ruch po okręgu o małym promieniu.
+                                        Prędkość, kierunek jazdy (backward/forward), kierunek obrotu (left/right) i czas jazdy w sekundach mogą zostać wybrane z rozwijanego menu.
+                                    </p>
+                                    <p>
+                                        <strong>Wskazówka:</strong> Miej na uwadze, że prędkość wpływa na promień skrętu, a czas będzie wpływał na odległość, jaką Ozobot pokona.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-bigcircle" aria-expanded="false" aria-controls="doc-bigcircle">
+                                        Move In Big Circle
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-bigcircle" class="collapse" role="tabpanel" aria-labelledby="doc-bigcircle" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>big_circle()</code>
+                                    <p>
+                                        Działanie tej komendy jest podobne do MOVE IN SMALL CIRCLE. Różnicę stanowi wielkość zakreślanego promienia.
+                                        Prędkość, kierunek jazdy (backward/forward), kieunek obrotu (left/right) i czas jazdy mogą zostać wybrane z rozwijanego menu.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-moveforward" aria-expanded="false" aria-controls="doc-moveforward">
+                                        Move Forward Until Line Is Found
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-moveforward" class="collapse" role="tabpanel" aria-labelledby="doc-moveforward" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>move_straight_until_line()</code>
+                                    <p>
+                                        Ta komenda pozwala na przestawienie sposobu ruchu Ozobota ze swobodnego na ruch po wyznaczonej linii.
+                                        MOVE FORWARD UNTIL LINE IS FOUND inicjuje ruch naprzód (z zadeklarowaną prędkością) podczas gdy Ozobot aktywnie szuka linii.
+                                        Po wykryciu linii Ozobot zacznie nią podążać aż do jej zakończenia lub kiedy napotka na skrzyżowanie.
+                                        Należy pamiętać, że dla Ozobota skrzyżowaniem są linie prostopadłe, a po dotarciu do nich Ozobot zatrzymuje się.
+                                    </p>
+                                    <p>
+                                        <strong>Wskazówka:</strong> Gdy Ozobot wykona kod złożony z komend z kategorii MOVE, będzie poruszał się w trybie swobodnym niezależnie od napotkanych przez niego linii. Jednakże musi mieć włączone swoje czujniki aby wykrywać linie i widzieć skrzyżowania.
+                                    </p>
+                                    <br>
+                                    <code>move_straight_until_line(medium)</code>
+                                    <p>Możesz ustawić prędkość poruszania się Ozobota w trybie: slow, medium, fast, very fast.
+                                    </p>
+                                    <br>
+                                    <code>move_straight_until_line(30)</code>
+                                    <p>Możesz ustawić prędkość poruszania się Ozobota w mm/s wpisując wartość mieszczącą się w zakresie od -128 do 127.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-setwheel" aria-expanded="false" aria-controls="doc-setwheel">
+                                        Set Wheel Speed
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-setwheel" class="collapse" role="tabpanel" aria-labelledby="doc-setwheel" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>set_wheel_speeds (30, 30)</code>
+                                    <p>
+                                        Komenda SET WHEEL SPEED daje możliwość najlepszej kontroli poruszania się Ozobota w swobodnym trybie. Poprzez niezależne ustawienie prędkości dla prawego i lewego kółka (od 15 do 85 mm/sec), możesz sprawić, że Ozobot zacznie się obracać, poruszać po krzywej, czy też jechać po prostej . Ujemne wartości będą odwracały kierunek obrotu kół.
+                                        Opcja zastosowania Zmiennych daje dużo możliwości stworzenia bardziej zaawansowanego, dowolnego ruchu.
+                                    </p>
+                                    <p>
+                                        <strong>Wskazówka:</strong> Zawsze po komendzie SET WHEEL SPEED powinna znajdować się komenda WAIT.
+                                        Będzie ona wpływać na to jak długo koła będą w ruchu.
+                                        Następna komenda dotycząca ruchu i ustawiająca prędkość będzie natychmiast zapisywać ustawienia prędkości koła.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-stopmotors" aria-expanded="false" aria-controls="doc-stopmotors">
+                                        Stop Motors
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-stopmotors" class="collapse" role="tabpanel" aria-labelledby="doc-stopmotors" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>stop_motors</code>
+                                    <p>
+                                        STOP MOTORS to specjalna komenda, która jest używana w połączeniu z SET WHEEL SPEEDS. Natychmiastowo ustawia prędkość kół na 0, powodując zatrzymanie Ozobota.
+                                        Zauważ, że ta komenda nie powoduje żadnych dodatkowych czynności Ozobota.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-surfacecolor" aria-expanded="false" aria-controls="doc-surfacecolor">
+                                        Surface Color
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-surfacecolor" class="collapse" role="tabpanel" aria-labelledby="doc-surfacecolor" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>surface_color()</code>
+                                    <p>Za pomocą tej komendy ustawiamy kolor pola. Często jest ona używany w połączeniu z Get Surface Color, by kontrolować zachowanie robota będącego w swobodnym trybie ruchu.
+                                        Używając tej komendy Ozobot może wykryć osiem różnych kolorów: Red, Green, Blue, Black, White, Cyan, Magenta i Yellow.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-getsurfacecolor" aria-expanded="false" aria-controls="doc-getsurfacecolor">
+                                        Get Surface Color
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-getsurfacecolor" class="collapse" role="tabpanel" aria-labelledby="doc-getsurfacecolor" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>get_surface_color</code>
+                                    <p>
+                                        Komenda GET SURFACE COLOR zwraca kolor wykryty przez czujniki Ozobota w czasie jazdy w trybie swobodnym. Za sprawą tej komendy Ozobot może wykryć osiem różnych kolorów: Red, Green, Blue, Black, White, Cyan, Magenta and Yellow.
+                                        Użyj tego bloku w instrukcjach warunkowych IF i innych zaawansowanych instrukcji.
+                                    </p>
+                                    <p>
+                                        <strong>Wskazówka:</strong>Nie używaj tej komendy do sprawdzania jaki jest kolor linii na ich końcach lub na ich przecięciu.
+                                        Do tego trybu jest przeznaczony inna komenda: Get Intersection/Line-End Color w kategorii Line Navigation.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-turnledoff" aria-expanded="false" aria-controls="doc-turnledoff">
+                                        Turn LED Off
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-turnledoff" class="collapse" role="tabpanel" aria-labelledby="doc-turnledoff" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>turn_top_light_off</code>
+                                    <p>
+                                    Turn LED Off wyłącza diodę Ozobota aż do momentu odblokowania jej inną komendą odpowiedzialną za ustawienia świateł.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-policecar" aria-expanded="false" aria-controls="doc-policecar">
+                                        Police Car Lights
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-policecar" class="collapse" role="tabpanel" aria-labelledby="doc-policecar" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>police_car_lights</code>
+                                    <p>
+                                        Kiedy zastosujesz tę komendę, Ozobot będzie dynamicznie zmieniał światła w kolorze niebieskim i czerwonym - tak jak w wozie policyjnym.
+                                    </p>
+                                    <p><strong>Wskazówka:</strong>
+                                        Kiedy zastosujesz tę komendę, Ozobot będzie dynamicznie zmieniał światła w kolorze niebieskim i czerwonym - tak jak w wozie policyjnym.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-rainbow" aria-expanded="false" aria-controls="doc-rainbow">
+                                        Rainbow
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-rainbow" class="collapse" role="tabpanel" aria-labelledby="doc-rainbow" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>rainbow()</code>
+                                    <p>
+                                        Ozobot wykonuje animację zmiany kolorów, płynnie przechodząc z jednego koloru do następnego.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-trafficlights" aria-expanded="false" aria-controls="doc-trafficlights">
+                                        Traffic Lights
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-trafficlights" class="collapse" role="tabpanel" aria-labelledby="doc-trafficlights" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>traffic_lights()</code>
+                                    <p>
+                                     Ozobot zachowuje się jak sygnalizator świetlny, sekwencyjnie zmieniając swoje kolory z czerwonego na żółty, a następnie na zielony.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-christmastree" aria-expanded="false" aria-controls="doc-christmastree">
+                                        Christmas Tree
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-christmastree" class="collapse" role="tabpanel" aria-labelledby="doc-christmastree" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>christmas_tree()</code>
+                                    <p>
+                                        Podczas tej animacji Ozobot świeci w sposób przpominający migające światełka na świątecznej choince.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-fireworks" aria-expanded="false" aria-controls="doc-fireworks">
+                                        Fireworks
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-fireworks" class="collapse" role="tabpanel" aria-labelledby="doc-fireworks" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>fireworks()</code>
+                                    <p>
+                                        Ozobot wykonuje radosną animację świetlną błyskając kolorami jak podczas pokazów sztucznych ogni.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-setrandomlight" aria-expanded="false" aria-controls="doc-setrandomlight">
+                                        Set Random Light
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-setrandomlight" class="collapse" role="tabpanel" aria-labelledby="doc-setrandomlight" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>set_top_light_color_randomly()</code>
+                                    <p>
+                                        W przeciwieństwie do SET LIGHT COLOR, ta komenda pozwala Ozobotowi na wybranie koloru na jaki będzie świecił.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-setlightcolor" aria-expanded="false" aria-controls="doc-setlightcolor">
+                                        Set Light Color
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-setlightcolor" class="collapse" role="tabpanel" aria-labelledby="doc-setlightcolor" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>color(red)</code>
+                                    <p>
+                                        Użyj komendy SET LIGHT COLOR aby zmienić kolor diody w Ozobocie. Możesz wybrać kolor z próbnika, który pojawi się po kliknięciu czerwonego kwadratu(czerwony jest domyślnym kolorem).
+                                        Po wystąpieniu tej instrukcji, robot będzie wykonywał dalszą część programu, świecąc na wybrany przez ciebie kolor. Aby dokonać ponownej zmiany koloru diody musisz wykonać następną instrukcję.
+                                    <p><strong>Wskazówka: </strong>Aby Ozobot pozostający w bezruchu świecił na wybrany przez ciebie kolor, możesz ustawić kolor diody, a następnie użyć komendy Wait i po jej zastosowaniu wybrać inny kolor aby stworzyć animację świetlną.
+                                                Ozobot wykonuje animację świetlną, w czasie której świeci na niebiesko, wyłącza się, a następnie świeci na zielono – wszystko z przerwami trwającymi 1 sekundę.
+                                    </p>
+                                    <br>
+                                    <code>color(127,127,0)</code>
+                                    <p>Z pomocą tej komendy można stworzyć szeroką gamę kolorów, konfigurując osobno natężenie koloru zielonego i niebieskiego.
+                                        Zakres liczb może się zawierać w przedziale pomiędzy od 0 do 127.
+                                        Możesz użyć Zmiennych aby utworzyć animacje według własnego pomysłu.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-followline" aria-expanded="false" aria-controls="doc-followline">
+                                        Follow Line to Next Intersection or Line End
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-followline" class="collapse" role="tabpanel" aria-labelledby="doc-followline" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>follow_line_to_intersect_or_end()</code>
+                                    <p>
+                                        Zastosuj tę komendę aby wykorzystać podstawowe umiejętności Ozobota do jazdy po liniach. Tak jak mówi nazwa komendy, Ozobot będzie poruszał się wzdłuż linii, na której został umieszczony, aż do momentu napotkania jej końca lub do skrzyżowania.
+                                        Prędkość poruszania się jest domyślnie ustawiona na medium, o ile nie ustawisz innej wartości posługując się komendą SET LINE-FOLLOWING SPEED.
+                                     </p>
+                                     <p><strong>Wskazówka: </strong>Musisz ustawić kierunek ruchu stosując komendę PICK DIRECTION. Dzięki temu Ozobot będzie wiedział, w którym kierunku ma skręcić kiedy dojedzie do skrzyżowania.
+                                         Jeżeli jednak zamiast tego zastosujesz komendę FOLLOW LINE NEXT TO INTERSECTION OR LINE END, Ozobot będzie sam wybierał kierunek w którym pojedzie. Miej też na uwadze, że Ozobot nie będzie w stanie wykonywać żadnych instrukcji (takich jak Light Effects) w czasie, gdy będzie jechał po linii.
+                                     </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-pickdirection" aria-expanded="false" aria-controls="doc-pickdirection">
+                                        Pick Direction
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-pickdirection" class="collapse" role="tabpanel" aria-labelledby="doc-pickdirection" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>pick_direction(left)</code>
+                                    <p>
+                                        Komenda dotyczy wyboru kierunku Ozobota kiedy dojedzie on do skrzyżowania lub końca linii po której się porusza.
+                                        Możliwe kierunki na rozwijanej liście to: left, right, forward i back. Miej na uwadze to, że jeśli twój wybór kierunku będzie niodpowiedni dla Ozobota do wykonania to program wstrzyma dalsze wykonywanie czynności i wówczas Ozobot wyraźnie zasygnalizuje migającymi czerwono-niebieskimi światłami.
+                                    </p>
+                                    <p><strong>Wskazówka: </strong>
+                                        PICK DIRECTION wykonuje tylko tą czynność i nie inicjuje ruchu. Aby wprawić Ozobota w ruch musisz ponownie użyć komendy FOLLOW LINE TO NEXT INTERSECTION OR LINE END.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-setline" aria-expanded="false" aria-controls="doc-setline">
+                                        Set Line Following Speed
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-setline" class="collapse" role="tabpanel" aria-labelledby="doc-setline" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>set_line_following_speed(medium)</code>
+                                    <p>
+                                        Użyj tej komendy aby ustawić prędkość poruszania się po linii Ozobota.
+                                        W rozwijanym menu do wyboru są następujące prędkości: slow (25 mm/sec), medium (45 mm/sec), fast (65 mm/sec), very fast (85 mm/sec).
+                                    </p>
+                                    <p><strong>Wskazówka: </strong>
+                                        Miej na uwadze, że prędkość jazdy po linii nie ma wpływu na prędkość ustawioną dla komend z kategorii Move, tak samo jak i te z kategorii Movement nie mają wpływu na Set Line-Following Speed.
+                                    </p>
+                                    <br>
+                                    <p><code>set_line_following_speed(30)</code>
+                                    <p>Możesz wybrać dowolnie wybraną przez siebie prędkość zawierającą się w przedziale pomiędzy 15 i 85mm/s (jest to pełen zakres prędkości Ozobota.
+                                       Ujemne liczby nie są dozwolone, ponieważ Ozobot nie będzie w stanie jechać po linii poruszając się tyłem.
+                                   </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-getspeed" aria-expanded="false" aria-controls="doc-getspeed">
+                                        Get Current Line-Following Speed
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-getspeed" class="collapse" role="tabpanel" aria-labelledby="doc-getspeed" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>get_line_speed()</code>
+                                    <p>
+                                        Dzięki tej komendzie pobieramy aktualną prędkość poruszania się Ozobota po linii w mm/sec.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-getintersection" aria-expanded="false" aria-controls="doc-getintersection">
+                                        Get Intersection/Line-End Color
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-getintersection" class="collapse" role="tabpanel" aria-labelledby="doc-getintersection" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>get_intersect_or_line_end_color()</code>
+                                    <p>
+                                        Get Intersection/Line-End Color sczytuje kolor na zakończeniach linii i skrzyżowaniu.
+                                        Kolorem linii może być Red, Green, Blue lub Black.
+                                        Użyj tej komendy aby stworzyć instrukcje warunkowe IF i inne zaawansowane operacje.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-intersection" aria-expanded="false" aria-controls="doc-intersection">
+                                        Intersection/Line-End Color
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-intersection" class="collapse" role="tabpanel" aria-labelledby="doc-intersection" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>intersection_or_line_end_color()</code>
+                                    <p>
+                                        Ta komenda powoduje ustawienie koloru linii. Dostępne kolory to: Red, Green, Blue lub Black.
+                                        Wraz z GET INTERSECTION-END COLOR użyj tej komendy do porównania kolorów lnii zawierając je wewnątrz instrukcji warunkowej IF.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-waitnsec" aria-expanded="false" aria-controls="doc-waitnsec">
+                                        Wait N Seconds
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-waitnsec" class="collapse" role="tabpanel" aria-labelledby="doc-waitnsec" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>wait()</code>
+                                    <p>
+                                    Ta komenda pozwala Ci ustawić przerwę w wykonywaniu programu.
+                                    Z listy rozwijanej możesz wybrać wartość od 1 do 10 sekund.
+                                    </p>
+                                    <br>
+                                    <p><code>wait(1,0)</code>
+                                    <p>Z rozwijanej listy możesz wybrać liczbę całkowitą pomiędzy 1 a 20, a w drugim okienku liczby od 1 do 9 dzięki czemu możesz uzyskać wartość w dziesiętnych sekundach.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-wait" aria-expanded="false" aria-controls="doc-wait">
+                                        Wait
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-wait" class="collapse" role="tabpanel" aria-labelledby="doc-wait" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>wait()</code>
+                                    <p>
+                                    Za pomocą komendy WAIT możesz dokładniej sprecyzować przerwy w poruszaniu się Ozobota.
+                                    Najmniejsza wartością dla Ozobota to 0,01 sekundy lub 10 milisekund (ms).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-turnoff" aria-expanded="false" aria-controls="doc-turnoff">
+                                        Terminate User Program (Turn Off)
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-turnoff" class="collapse" role="tabpanel" aria-labelledby="doc-turnoff" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>terminate()</code>
+                                    <p>
+                                    Ta komenda kończy działanie programu i wyłącza Ozobota.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-lf" aria-expanded="false" aria-controls="doc-lf">
+                                        Terminate User Program (LF)
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-lf" class="collapse" role="tabpanel" aria-labelledby="doc-lf" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>terminate_program_and_continue_line_following()</code>
+                                    <p>
+                                    Ta komenda kończy działanie programu i przełącza Ozobota w stan gotowości jeżdzenia po linii.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#doc-idle" aria-expanded="false" aria-controls="doc-idle">
+                                        Terminate User Program (IDLE)
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="doc-idle" class="collapse" role="tabpanel" aria-labelledby="doc-idle" data-parent="#accordion">
+                                <div class="card-body">
+                                    <code>terminate_program_and_switch_to_idle()</code>
+                                    <p>
+                                    Ten blok kończy działanie programu i przestawia Ozobota w tryb oczekiwania.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="clearfix">
+                                <div class="d-flex align-items-center">
+                                    <h3 class="pull-left mr-2">Wgraj program</h3>
+                                    <button class="btn btn-outline-primary fa fa-question-circle" aria-hidden="true"></button>
+                                </div>
+                            </div>
+                            <div>
+                                <a class="picture" href="https://placeholder.com">
+                                <img src="http://via.placeholder.com/170x160" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col_right">
+                                <div class="progress-box mb-3">
+                                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary2" data-toggle="button" aria-pressed="false">
+                                    Wgraj program
+                                </button>
+                                <div class="checkcode">
+                                    <p>Zanim wgrasz program musisz kliknąć przycisk SPRAWDŹ KOD.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+        <script src="codemirror/lib/codemirror.js"></script>
+        <script src="codemirror/mode/python/python.js"></script>
+        <script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
+        <script>
+        $(document).ready(function(){
+
+            $("[name='my-checkbox']").bootstrapSwitch({
+                size: 'mini',
+                onText: '<span class="fa fa-sun-o"></span>',
+                offText: '<span class="fa fa-moon-o"></span>'
+            });
+
+            $(".errorlist").hide();
+            var code = $("textarea")[0];
+            var editor = CodeMirror.fromTextArea(code, {
+                mode: 'python',
+                lineNumbers: true,
+                theme: 'dracula',
+            });
+        });
+
+
+        $(function () {
+            var accordion = $("#doc-accordion");
+            accordion.on('shown.bs.collapse', function(e) {
+                var el = $(e.target);
+                var offset = el.offset();
+                if (offset) {
+                    accordion.stop().animate({
+                        scrollTop: offset.top - accordion.offset().top + accordion.scrollTop()
+                    }, 500);
+                }
+            });
+        });
+        </script>
+    </body>
+</html>
