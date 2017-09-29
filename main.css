@@ -124,8 +124,7 @@ h3 {
     border:none;
     width: calc(100% - 161px) !important;
     float: left;
-    padding: 0.5rem 0.5rem !important;
-    min-height: 58px;
+    height: 58px;
     line-height: 1;
 }
 
@@ -282,3 +281,12 @@ h3 .pull-left {
         padding-top: 2rem;
     }
 }
+
+
+
+
+
+
+
+
+/*****************************************************************/
