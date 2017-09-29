@@ -7,7 +7,7 @@ body {
 }
 
 #doc-accordion {
-    height: calc(100% - 300px);
+    height: calc(100% - 342px);
     overflow-y: auto;
 }
 
@@ -41,7 +41,7 @@ body {
 }
 
 .editor {
-    height: calc(100% - 60px);
+    height: calc(100% - 100px);
     padding-top: 1rem;
 }
 
@@ -52,21 +52,23 @@ body {
 .collapsed  {
     font-family:'Rajdhani';
     font-size: 16px;
-    color: #1c7bff;
+    color: #006bff;
 }
 
 .card-header {
     font-family:'Rajdhani';
     font-size: 16px;
-    color: #1c7bff;
-    background-color: #eee;
+    font-weight: 600;
+    color: #006bff;
+    background-color: #f7f7f7;
+    border-color: rgba(0,0,0,.15);
 }
 
 .card-header:hover a {
     font-family:'Rajdhani';
     font-size: 16px;
     color: white !important;
-    background-color: #1c7bff;
+    background-color: #006bff;
 }
 
 .card-body {
@@ -74,27 +76,36 @@ body {
     font-size: 14px;
 }
 
-.btn-primary {
+.btn-primary1 {
     font-family:'Rajdhani';
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-    background-color: #1c7bff;
+    background-color: #006bff;
     color: white;
+    width: 161px !important;
+    height: 58px;
+    float: left;
 }
 
 .btn-primary2 {
     font-family:'Rajdhani';
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-    background-color: #1c7bff;
+    background-color: #006bff;
     color: white;
-    width: 100%;
+    width: 173px;
+    height: 58px;
 }
 
 code {
     font-family:'Rajdhani';
     font-size: 14px;
-    color: #e83e27;
+    color: #006bff;
+    border: 1px solid rgba(0,0,0,.15);
+    display: inline-block;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+    background: none;
 }
 
 h3 {
@@ -111,11 +122,17 @@ h3 {
     background-color: #e83e27;
     color: white;
     border:none;
+    width: calc(100% - 161px) !important;
+    float: left;
+    padding: 0.5rem 0.5rem !important;
+    min-height: 58px;
+    line-height: 1;
 }
 
 nav a {
     color: black;
 }
+
 .lang_text {
     font-family:'Rajdhani';
     font-size: 14px;
@@ -139,16 +156,20 @@ nav a {
     font-size: 14px;
     font-weight: 600;
     color: black;
-    padding-top: 1rem;
-    text-align: center;
+    margin-top: 2rem;
+    line-height: 1rem;
 }
+
 .progress-bar {
-    background-color: #1c7bff;
+    background-color: #006bff;
+    height: 10px;
 }
 
 .progress-box {
-    border: 1px solid black;
+    border: 1px solid;
+    border-color: rgba(0,0,0,.15);
     margin-bottom: 2rem !important;
+    width: 173px;
 }
 
 .full-height {
@@ -171,7 +192,7 @@ nav a {
     padding-bottom: 0.5rem;
 }
 
-.clearfix {
+.clearfix2 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
@@ -187,6 +208,61 @@ h3 .pull-left {
 .logo-text {
     padding-top: 1rem;
 }
+
+.card-body p {
+    line-height: 1;
+    text-align: justify;
+}
+
+.question_mark {
+    font-size: 20px;
+    padding: 0.20rem 0.5rem;
+    color: #006bff;
+    border-color: rgba(0,0,0,.15);
+}
+
+.question_mark:hover {
+    background: white;
+    color: #006bff;
+    border-color: rgba(0,0,0,.15);
+}
+
+#basic-addon1 {
+    border-radius: 0;
+    color: #006bff;
+    border: 0;
+    position: absolute;
+    right: 0;
+    top: 0rem;
+    z-index: 4;
+    background: none;
+}
+
+.icons {
+    padding-top: 1rem;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+    background: #006bff;
+    border-radius: 0;
+}
+
+.bootstrap-switch {
+    border-radius: 0;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+    background: #f7f7f7;
+    border-radius: 0;
+}
+
+.col_right {
+    padding-top: 6rem;
+    float: right;
+    width: 173px;
+}
+
+
 
 
 @media only screen and (max-width: 768px) {
