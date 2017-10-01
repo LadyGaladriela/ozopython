@@ -111,7 +111,7 @@ code {
 h3 {
     font-family:'Rajdhani';
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     padding-top: 1rem;
 }
 
@@ -124,7 +124,7 @@ h3 {
     border:none;
     width: calc(100% - 161px) !important;
     float: left;
-    height: 58px;
+    min-height: 58px;
     line-height: 1;
 }
 
@@ -160,7 +160,7 @@ nav a {
 }
 
 .progress-bar {
-    background-color: #006bff;
+    color: #006bff;
     height: 10px;
 }
 
@@ -215,7 +215,13 @@ h3 .pull-left {
 
 .question_mark {
     font-size: 20px;
-    padding: 0.20rem 0.5rem;
+    padding: 0.15rem 0.5rem;
+    color: #006bff;
+    border-color: rgba(0,0,0,.15);
+}
+
+.question_mark:focus {
+    background: white;
     color: #006bff;
     border-color: rgba(0,0,0,.15);
 }
@@ -248,6 +254,7 @@ h3 .pull-left {
 
 .bootstrap-switch {
     border-radius: 0;
+    background-color: white;
 }
 
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
@@ -260,6 +267,12 @@ h3 .pull-left {
     float: right;
     width: 173px;
 }
+
+.btn:focus,
+.input-group-addon:focus {
+    box-shadow: none;
+}
+
 
 
 
@@ -282,11 +295,146 @@ h3 .pull-left {
     }
 }
 
+@media (max-width: 992px) {
+    .container {
+        max-width: none;
+    }
 
-
-
-
-
+    .col-md-5,
+    .col-md-7 {
+        flex: none;
+        max-width: 100%;
+    }
+}
 
 
 /*****************************************************************/
+
+body.dark {
+    background-color: black;
+}
+
+.dark h3 {
+    color: white;
+}
+
+.dark .question_mark {
+    font-size: 20px;
+    padding: 0.20rem 0.5rem;
+    background-color: white !important;
+}
+
+.dark .question_mark:hover {
+    background: white;
+    color: #006bff;
+    border-color: rgba(0,0,0,.15);
+}
+
+.dark .card-header a {
+    font-family:'Rajdhani';
+    font-size: 16px;
+    font-weight: 600;
+    color: white !important;
+    background-color: #006bff;
+}
+
+.dark .card-header:hover a {
+    font-family:'Rajdhani';
+    font-size: 16px;
+    color: white !important;
+    background-color: #1c7bff;
+}
+
+.dark .lang_text {
+    font-family:'Rajdhani';
+    font-size: 14px;
+    text-decoration: none;
+    color: #9a9b9e;
+}
+
+.dark .lang_text:hover {
+    font-family:'Rajdhani';
+    font-size: 14px;
+    color: #9a9b9e;
+    text-decoration: none;
+}
+
+.dark .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+    background: #006bff;
+    border-radius: 0;
+}
+
+.dark .bootstrap-switch {
+    border-radius: 0;
+    background-color: white;
+}
+
+.dark .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+    background: #f7f7f7;
+    border-radius: 0;
+}
+
+.dark .checkcode {
+    font-family:'Rajdhani';
+    font-size: 14px;
+    font-weight: 600;
+    color: #9a9b9e;
+    margin-top: 2rem;
+    line-height: 1rem;
+}
+
+.dark .question_mark {
+    color: #9a9b9e;
+}
+
+.dark .question_mark:focus {
+    background: white;
+    color: #9a9b9e;
+    box-shadow: none;
+}
+
+.dark .question_mark:hover {
+    background: white;
+    color: #9a9b9e;
+    background-color: none;
+}
+
+.dark .progress-box {
+    border: none;
+    background: white;
+}
+
+.dark .progress-bar {
+    color: #006bff;
+    height: 10px;
+}
+
+.dak .progress-box {
+    border: 1px solid;
+    border-color: #9a9b9e;
+}
+
+.dark .btn:focus,
+.dark. .input-group-addon:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.dark .input-group-addon {
+    box-shadow: none;
+    outline: none;
+}
+
+.dark .search:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+.dark #basic-addon1 {
+    color: #9a9b9e;
+}
+
+.dark .card-header {
+    background: black;
+}
