@@ -87,6 +87,10 @@ body {
     float: left;
 }
 
+.btn-primary1:hover {
+    background-color: #5fa2ff;
+}
+
 .btn-primary2 {
     font-family:'Rajdhani';
     font-size: 20px;
@@ -95,6 +99,10 @@ body {
     color: white;
     width: 173px;
     height: 58px;
+}
+
+.btn-primary2:hover {
+    background-color: #5fa2ff;
 }
 
 code {
@@ -126,6 +134,9 @@ h3 {
     float: left;
     min-height: 58px;
     line-height: 1;
+    padding-top: 1rem !important;
+    /*padding-bottom: 0.4rem !important;*/
+    /*padding-bottom: 0.450rem !important;*/
 }
 
 nav a {
@@ -214,8 +225,8 @@ h3 .pull-left {
 }
 
 .question_mark {
-    font-size: 20px;
-    padding: 0.15rem 0.5rem;
+    font-size: 15px !important;
+    padding: 2px 6px !important;
     color: #006bff;
     border-color: rgba(0,0,0,.15);
 }
@@ -228,7 +239,7 @@ h3 .pull-left {
 
 .question_mark:hover {
     background: white;
-    color: #006bff;
+    color: #5fa2ff;
     border-color: rgba(0,0,0,.15);
 }
 
@@ -269,6 +280,7 @@ h3 .pull-left {
 }
 
 .btn:focus,
+.form-control,
 .input-group-addon:focus {
     box-shadow: none;
 }
@@ -322,6 +334,7 @@ body.dark {
     font-size: 20px;
     padding: 0.20rem 0.5rem;
     background-color: white !important;
+    color: #9a9b9e !important;
 }
 
 .dark .question_mark:hover {
@@ -384,7 +397,7 @@ body.dark {
 }
 
 .dark .question_mark {
-    color: #9a9b9e;
+    color: #a8a8a8;
 }
 
 .dark .question_mark:focus {
@@ -395,7 +408,7 @@ body.dark {
 
 .dark .question_mark:hover {
     background: white;
-    color: #9a9b9e;
+    color: #3c3f41 !important;
     background-color: none;
 }
 
@@ -415,7 +428,7 @@ body.dark {
 }
 
 .dark .btn:focus,
-.dark. .input-group-addon:focus {
+.dark .input-group-addon:focus {
     box-shadow: none !important;
     outline: none !important;
 }

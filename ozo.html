@@ -23,7 +23,8 @@
                 <div class="pull-right">
                     <a href="#link" class="lang_text">wersja polska</a>
                     <a href="#link" class="lang_text" style="margin-right: 10px;">wersja angielska</a>
-                    <input type="checkbox" name="my-checkbox" checked>
+                    <input type="checkbox" name="my-checkbox" input id="my-checkbox">
+                    <!-- <input id="my-checkbox"> -->
                 </div>
             </div>
         </nav>
@@ -756,7 +757,6 @@
             });
         });
 
-
         $(function () {
             var accordion = $("#doc-accordion");
             accordion.on('shown.bs.collapse', function(e) {
@@ -769,6 +769,22 @@
                 }
             });
         });
+
+        $("#my-checkbox").bootstrapSwitch({
+                        size: 'mini',
+                        onText: '<span class="fa fa-sun-o"></span>',
+                        offText: '<span class="fa fa-moon-o"></span>',
+        				onSwitchChange: function() {
+        					var state = $("#my-checkbox").bootstrapSwitch('state');
+        					if (state) {
+        						$("body").removeClass('dark');
+        					} else {
+        						$("body").addClass('dark');
+        					}
+        				}
+                    });
+
         </script>
+
     </body>
 </html>
